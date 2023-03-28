@@ -16,7 +16,7 @@ python3 main.py [-f filename]
 ```
 [start time (e.g. 3:00pm)] [end time] [event name]
 ```
-Input can be supplied line-by-line via the command line or through a text file with the -f flag.
+Input can be supplied line-by-line via the command line or through a text file with the -f flag. (See `sampleinput.txt`)
 
 The default date for each event is today's date and the default time zone is US/Eastern. If you'd like to change the timezone, please change the TIMEZONE constant in `main.py`. Supported values are listed [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
