@@ -1,0 +1,4 @@
+10:00am 2:00pm Class
+3:00pm 4:00pm Gym
+4:15pm 7:15pm Homework
+9:00pm 10:00pm Club Meeting
