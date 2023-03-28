@@ -14,13 +14,6 @@ command line
 
 -f [filename] - The script reads input from the specified
 file path
-
-TODO List:
-    - Allow user to enter date instead of automatically using
-      today's date
-    - Add functionality for all day events
-    - Add functionality for alarms
-    - Add "native" time zone support instead of GMT offset
 """
 
 import sys
@@ -30,19 +23,20 @@ from ics import Calendar, Event
 
 SENTINEL = ''
 INTERNAL_TIME_FORMAT = 'M-D-YYYY h:mmA'
+INTERNAL_DATE_FORMAT = 'MM-DD-YYYY'
 TIMEZONE = 'US/Eastern'
 
 
-def add_event(input, cal):
+def add_event(input, date, cal):
     """
     Add a single event to the calendar. Checks for invalid input.
     
     @param input (str): formatted string
+    @param date (Arrow): Arrow object containing the date of the event
     @param cal (Calendar): Calendar object to be modified
     """
     # get the current month, day, year to use in all events
-    now = arrow.utcnow().to(TIMEZONE)
-    month, day, year = now.month, now.day, now.year
+    month, day, year = date.month, date.day, date.year
     splits = input.split()
     if len(splits) < 3:
         print(f'Invalid input {input}. Event not added.')
@@ -69,9 +63,21 @@ def fill_calendar_file(filename, cal):
     @param cal (Calendar): Calendar object to be modified
     """
     with open(filename) as file:
+        user_date = file.readline().strip()
+        if user_date.lower() == 'today':
+            date = arrow.utcnow().to(TIMEZONE)
+        elif user_date.lower() == 'tomorrow':
+            date = arrow.utcnow().to(TIMEZONE)
+            date = date.shift(days=1)
+        else:
+            try:
+                date = arrow.get(user_date, INTERNAL_DATE_FORMAT)
+            except arrow.parser.ParserMatchError:
+                raise Exception('Invalid date. The first line of the file should be "today", "tomorrow", or MM-DD-YYYY')
+        print(f'Set date to {date.month}/{date.day}/{date.year}.')
         for line in file:
             line = line.strip()
-            add_event(line, cal)
+            add_event(line, date, cal)
             
 
 def fill_calendar_user(cal):
@@ -80,12 +86,28 @@ def fill_calendar_user(cal):
 
     @param cal (Calendar): Calendar object to be modified
     """
+    while True: 
+        user_date = input('Enter date ("today", "tomorrow", or MM-DD-YYYY): ')
+        if user_date.lower() == 'today':
+            date = arrow.utcnow().to(TIMEZONE)
+            break
+        elif user_date.lower() == 'tomorrow':
+            date = arrow.utcnow().to(TIMEZONE)
+            date = date.shift(days=1)
+            break
+        else:
+            try:
+                date = arrow.get(user_date, INTERNAL_DATE_FORMAT)
+                break
+            except arrow.parser.ParserMatchError:
+                print(f'Invalid date {user_date}.\nPlease enter date again ("today", "tomorrow", or MM-DD-YYYY): ')
+    print(f'Set date to {date.month}/{date.day}/{date.year}.')
     print('Enter your events one line at a time in the following format:')
     print('[start time (e.g. 3:00pm)] [end time] [name]\n\n')
     while True:
         inp = input('Enter your event (blank line to stop): ')
         if inp == SENTINEL: break
-        add_event(inp, cal)
+        add_event(inp, date, cal)
         
 
 def main():
@@ -102,7 +124,7 @@ def main():
             raise Exception('Invalid flag')
     else:
         fill_calendar_user(cal)
-    with open('my.ics', 'w') as file:
+    with open('wizard.ics', 'w') as file:
         file.writelines(cal.serialize_iter())
 
 
