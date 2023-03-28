@@ -28,4 +28,5 @@ The default date for each event is today's date and the default time zone is US/
 * Add functionality for alarms
 * Add "native" time zone support instead of GMT offset
 * Support more forms of date input
+* Add support for events crossing midnight
 * Host the tool on the web
