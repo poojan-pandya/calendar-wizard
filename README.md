@@ -11,13 +11,18 @@ pip install ics arrow
 python3 main.py [-f filename]
 ```
 
-3. Enter events in the following format:
+3. Enter input
+
+Input can be supplied line-by-line via the command line or through a text file with the -f flag. (See `sampleinput.txt`)
+
+The first line of input or the first line of the file should specify the date (either "today", "tomorrow", or MM/DD/YYYY)
+
+Then, enter events in the following format:
 ```
 [start time (e.g. 3:00pm)] [end time] [event name]
 ```
-Input can be supplied line-by-line via the command line or through a text file with the -f flag. (See `sampleinput.txt`)
 
-The default date for each event is today's date and the default time zone is US/Eastern. If you'd like to change the timezone, please change the TIMEZONE constant in `main.py`. Supported values are listed [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
+The default time zone is US/Eastern. If you'd like to change the timezone, please change the TIMEZONE constant in `main.py`. Supported values are listed [here](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).
 
 4. Import the generated .ics file in any supported calendar client (e.g. iCal, Outlook, Google Calendar)
 
