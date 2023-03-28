@@ -15,7 +15,7 @@ python3 main.py [-f filename]
 
 Input can be supplied line-by-line via the command line or through a text file with the -f flag. (See `sampleinput.txt`)
 
-The first line of input or the first line of the file should specify the date (either "today", "tomorrow", or MM/DD/YYYY)
+The first line of input of the first line of the file should specify the date (either "today", "tomorrow", or MM/DD/YYYY)
 
 Then, enter events in the following format:
 ```
