@@ -34,3 +34,4 @@ The default time zone is US/Eastern. If you'd like to change the timezone, pleas
 * Support more forms of date input
 * Add support for events which span multiple days
 * Host the tool on the web
+* Allow more flexible time inputs (e.g. 3pm instead of 3:00pm)
