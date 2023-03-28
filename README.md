@@ -22,7 +22,6 @@ The default date for each event is today's date and the default time zone is US/
 4. Import the generated .ics file in any supported calendar client (e.g. iCal, Outlook, Google Calendar)
 
 ## Future Work
-* Allow user to enter date instead of automatically using today's date
 * Allow the user to specify the timezone
 * Add functionality for all day events
 * Add functionality for alarms
