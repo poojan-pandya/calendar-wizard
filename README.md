@@ -1,6 +1,5 @@
 # calendar-wizard
-Python script which generates .ics calendar events from a shorthand text input format
-
+Python script which generates .ics calendar events from a shorthand text input format resembling a to-do list, making it easier to schedule events and tasks for the upcoming day.
 ## How to use
 1. Install ics
 ```console
