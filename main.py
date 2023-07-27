@@ -1,5 +1,5 @@
 """
-File: calendar.py
+File: main.py
 Author: Poojan Pandya
 
 This script creates a .ics file from text input in a
